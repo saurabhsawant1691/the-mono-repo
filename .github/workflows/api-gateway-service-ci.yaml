@@ -2,9 +2,12 @@ name: CI/CD Workflow For Api-gateway
 
 on:
   push:
+    branches:
+      - main
     paths:
       - hospital-management/api-gateway/**
-
+      - .github/workflows/api-gateway-service-ci.yaml
+      
 jobs:
   pre-commit-scans:
     runs-on: ubuntu-latest
