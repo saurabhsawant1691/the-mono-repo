@@ -3,7 +3,7 @@ name: CI/CD Workflow For Api-gateway
 on:
   push:
     paths:
-      - hospital-management/api-gateway
+      - hospital-management/api-gateway/**
 
 jobs:
   pre-commit-scans:
