@@ -3,7 +3,7 @@ name: CI/CD Workflow For directory service
 on:
   push:
     paths:
-      - hospital-management/directory-service
+      - hospital-management/directory-service/**
 
 
 jobs:
