@@ -3,9 +3,11 @@ name: CI/CD Workflow For appointment service
 
 on:
   push:
+    branches:
+      - main
     paths:
       - hospital-management/appointment-service
-
+      - .github/workflows/appointment-service.yaml
 jobs:
   pre-commit-scans:
     runs-on: ubuntu-latest
