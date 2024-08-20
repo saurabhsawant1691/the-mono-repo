@@ -3,7 +3,7 @@ name: CI/CD Workflow For Api-gateway
 on:
   push:
     paths:
-      - Hospital-Management/api-gateway
+      - hospital-management/api-gateway
 
 jobs:
   pre-commit-scans:
@@ -20,32 +20,32 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Navigate to subfolder and run commands
-      working-directory: 'Hospital-Management/api-gateway'
+      working-directory: 'hospital-management/api-gateway'
       run: |
         echo "Current directory: $(pwd)"
         ls
 
     - name: Perform Google Formatter check
-      working-directory: 'Hospital-Management/api-gateway'
+      working-directory: 'hospital-management/api-gateway'
       run: mvn com.spotify.fmt:fmt-maven-plugin:check
 
     - name: GitLeaks Scan
       uses: zricethezav/gitleaks-action@v1.3.0
       with:
-        args: --path=Hospital-Management/api-gateway
+        args: --path=hospital-management/api-gateway
 
     - name: OSS Scan
-      working-directory: 'Hospital-Management/api-gateway'
+      working-directory: 'hospital-management/api-gateway'
       run: mvn ossindex:audit
       continue-on-error: true
 
     - name: OWASP Scan
       if: false
-      working-directory: 'Hospital-Management/api-gateway'
+      working-directory: 'hospital-management/api-gateway'
       run: mvn org.owasp:dependency-check-maven:check
 
     - name: Build code and create Docker images
-      working-directory: 'Hospital-Management/api-gateway'
+      working-directory: 'hospital-management/api-gateway'
       run: mvn clean install docker:build -Dimage.registry=${{vars.DOCKER_REGISTRY_USER}} -Dimage.tag=latest
 
     - name: Log in to GitHub Docker Registry
