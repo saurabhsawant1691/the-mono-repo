@@ -2,8 +2,11 @@ name: CI/CD Workflow For directory service
 
 on:
   push:
+    branches:
+      - main
     paths:
       - hospital-management/directory-service/**
+      - .github/workflows/directory-service.yaml
 
 
 jobs:
