@@ -41,17 +41,17 @@ jobs:
         args: --path=hospital-management/case-service
 
     - name: OSS Scan
-      working-directory: 'hospital-management/directory-service'
+      working-directory: 'hospital-management/case-service'
       run: mvn ossindex:audit
       continue-on-error: true
 
     - name: OWASP Scan
       if: false
-      working-directory: 'hospital-management/directory-service'
+      working-directory: 'hospital-management/case-service'
       run: mvn org.owasp:dependency-check-maven:check
 
     - name: Build code and create Docker images
-      working-directory: 'hospital-management/directory-service'
+      working-directory: 'hospital-management/case-service'
       run: mvn clean install docker:build -Dimage.registry=${{vars.DOCKER_REGISTRY_USER}} -Dimage.tag=latest
 
     - name: Log in to GitHub Docker Registry
