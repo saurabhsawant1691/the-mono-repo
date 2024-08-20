@@ -2,8 +2,12 @@ name: CI/CD Workflow For case service
 
 on:
   push:
+    branches:
+      - main
     paths:
       - hospital-management/case-service/**
+      - .github/workflows/case-service.yaml
+
 
 jobs:
   pre-commit-scans:
@@ -20,11 +24,14 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Navigate to subfolder and run commands
+      working-directory: 'hospital-management/case-service'
       run: |
         echo "Current directory: $(pwd)"
         ls
 
     - name: Perform Google Formatter check
+      working-directory: 'hospital-management/case-service'
+
       if: false
       run: mvn com.spotify.fmt:fmt-maven-plugin:check
 
@@ -34,14 +41,17 @@ jobs:
         args: --path=hospital-management/case-service
 
     - name: OSS Scan
+      working-directory: 'hospital-management/directory-service'
       run: mvn ossindex:audit
       continue-on-error: true
 
     - name: OWASP Scan
       if: false
+      working-directory: 'hospital-management/directory-service'
       run: mvn org.owasp:dependency-check-maven:check
 
     - name: Build code and create Docker images
+      working-directory: 'hospital-management/directory-service'
       run: mvn clean install docker:build -Dimage.registry=${{vars.DOCKER_REGISTRY_USER}} -Dimage.tag=latest
 
     - name: Log in to GitHub Docker Registry
