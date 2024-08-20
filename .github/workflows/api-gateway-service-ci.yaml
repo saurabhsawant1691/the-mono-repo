@@ -60,4 +60,4 @@ jobs:
     - name: Push Docker images
       run: |
         CURRENT_FOLDER_NAME=api-gateway
-        docker push ${{vars.DOCKER_REGISTRY_USER}}/$CURRENT_FOLDER_NAME:latest
+        docker push ${{vars.DOCKER_REGISTRY_USER}}/$CURRENT_FOLDER_NAME:$GITHUB_REF_NAME
